@@ -1,0 +1,23 @@
+1
+00:00:00,300 --> 00:00:02,800
+Ainda regista faturas de compra à mão?
+
+2
+00:00:03,200 --> 00:00:06,000
+Agora, a IA do CentralGest faz isso por si!
+
+3
+00:00:06,300 --> 00:00:09,200
+Lê linha a linha e preenche tudo no software.
+
+4
+00:00:09,500 --> 00:00:11,500
+Basta um clique e está pronto!
+
+5
+00:00:12,100 --> 00:00:15,500
+Menos tempo a registar faturas. Mais tempo para o seu negócio.
+
+6
+00:00:15,900 --> 00:00:19,400
+CentralGest, o software de gestão ideal para empresas e contabilistas.

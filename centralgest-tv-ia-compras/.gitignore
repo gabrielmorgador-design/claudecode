@@ -1,0 +1,5 @@
+renders/*-raw.mp4
+renders/*.mxf
+renders/music_raw.wav
+snapshots/
+node_modules/
