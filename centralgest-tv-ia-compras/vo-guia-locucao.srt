@@ -4,7 +4,7 @@ Ainda regista faturas de compra à mão?
 
 2
 00:00:03,200 --> 00:00:06,000
-Agora, a IA do CentralGest faz isso por si.
+Agora, a IA do CentralGest faz isso por si!
 
 3
 00:00:06,300 --> 00:00:09,200
