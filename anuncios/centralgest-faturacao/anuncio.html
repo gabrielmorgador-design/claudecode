@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<title>CentralGest Faturação</title>
+<style>
+  :root {
+    /* Marketing CentralGest */
+    --mk-azul: #0C5FFB;
+    --mk-escuro: #0D1F41;
+    --branco: #FFFFFF;
+    /* Produto CentralGest Cloud (cartão de UI) */
+    --cg-primary: #2094F3;
+    --cg-primary-50: #E8F4FE;
+    --cg-text: #0D2440;
+    --cg-muted: #6B7A90;
+    --cg-line: #E6ECF3;
+    --cg-skeleton: #EDF2F8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--mk-escuro); }
+  body { font-family: "Inter", sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .peca { position: relative; overflow: hidden; color: var(--branco); }
+  .zona-problema, .zona-solucao { position: absolute; }
+  .zona-problema {
+    background:
+      radial-gradient(120% 90% at 85% 0%, rgba(12,95,251,.22) 0%, rgba(12,95,251,0) 55%),
+      var(--mk-escuro);
+  }
+  .zona-solucao { background: var(--mk-azul); }
+
+  /* Logótipo: marcador de posição até haver o ficheiro oficial */
+  .logo {
+    position: absolute; display: flex; align-items: center; justify-content: center;
+    border: 2px dashed rgba(255,255,255,.55); border-radius: 6px;
+    font-size: 15px; font-weight: 600; letter-spacing: .14em; color: rgba(255,255,255,.75);
+  }
+
+  .titulo { position: absolute; font-weight: 800; letter-spacing: -0.025em; line-height: 1.06; }
+  .titulo > span { display: block; white-space: nowrap; }
+  .realce {
+    background: linear-gradient(transparent 62%, var(--mk-azul) 62%, var(--mk-azul) 92%, transparent 92%);
+    padding: 0 .04em;
+  }
+
+  .apoio { position: absolute; font-weight: 600; letter-spacing: -0.015em; line-height: 1.12; }
+  .apoio > span { display: block; white-space: nowrap; }
+  .apoio .leve { font-weight: 500; opacity: .86; }
+
+  /* Cartão de produto */
+  .cartao {
+    position: absolute; background: var(--branco); color: var(--cg-text);
+    border-radius: 18px; padding: 30px 32px;
+    box-shadow: 0 30px 60px -20px rgba(4,15,40,.55), 0 8px 18px rgba(4,15,40,.18);
+    transform: rotate(-2.5deg); transform-origin: center;
+  }
+  .c-topo { display: flex; align-items: center; justify-content: space-between; }
+  .c-doc { display: flex; align-items: center; gap: 14px; }
+  .c-icone {
+    width: 46px; height: 46px; border-radius: 10px; background: var(--cg-primary-50);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .c-rotulo { font-size: 14px; color: var(--cg-muted); font-weight: 500; }
+  .c-num { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+  .c-chip {
+    display: flex; align-items: center; gap: 7px; padding: 7px 13px 7px 10px; border-radius: 999px;
+    background: var(--cg-primary); color: var(--branco); font-size: 15px; font-weight: 600;
+  }
+  .c-linhas { margin-top: 24px; border-top: 1px solid var(--cg-line); padding-top: 20px; display: grid; gap: 15px; }
+  .c-linha { display: flex; justify-content: space-between; align-items: center; }
+  .sk { height: 12px; border-radius: 6px; background: var(--cg-skeleton); }
+  .c-total {
+    margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--cg-line);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .c-total .r { font-size: 15px; color: var(--cg-muted); font-weight: 500; }
+  .c-total .v { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+
+  /* ---------- 1080 x 1350 (4:5) ---------- */
+  .f-4x5 { width: 1080px; height: 1350px; }
+  .f-4x5 .zona-problema { left: 0; top: 0; width: 1080px; height: 770px; }
+  .f-4x5 .zona-solucao { left: 0; top: 770px; width: 1080px; height: 580px; }
+  .f-4x5 .logo { left: 80px; top: 80px; width: 250px; height: 56px; }
+  .f-4x5 .titulo { left: 80px; top: 200px; font-size: 92px; }
+  .f-4x5 .cartao { left: 230px; top: 585px; width: 620px; }
+  .f-4x5 .apoio { left: 80px; bottom: 96px; font-size: 62px; }
+
+  /* ---------- 1080 x 1080 (1:1) ---------- */
+  .f-1x1 { width: 1080px; height: 1080px; }
+  .f-1x1 .zona-problema { left: 0; top: 0; width: 1080px; height: 600px; }
+  .f-1x1 .zona-solucao { left: 0; top: 600px; width: 1080px; height: 480px; }
+  .f-1x1 .logo { left: 72px; top: 72px; width: 220px; height: 50px; }
+  .f-1x1 .titulo { left: 72px; top: 172px; font-size: 72px; }
+  .f-1x1 .cartao { left: 600px; top: 455px; width: 420px; padding: 24px 26px; }
+  .f-1x1 .apoio { left: 72px; bottom: 72px; font-size: 48px; }
+
+  /* ---------- 1080 x 1920 (Stories e Reels) ---------- */
+  .f-9x16 { width: 1080px; height: 1920px; }
+  .f-9x16 .zona-problema { left: 0; top: 0; width: 1080px; height: 1080px; }
+  .f-9x16 .zona-solucao { left: 0; top: 1080px; width: 1080px; height: 840px; }
+  .f-9x16 .logo { left: 80px; top: 270px; width: 250px; height: 56px; }
+  .f-9x16 .titulo { left: 80px; top: 400px; font-size: 100px; }
+  .f-9x16 .cartao { left: 220px; top: 900px; width: 640px; padding: 34px 36px; }
+  .f-9x16 .apoio { left: 80px; bottom: 380px; font-size: 66px; }
+
+  /* ---------- 1200 x 627 (LinkedIn ligação) ---------- */
+  .f-li { width: 1200px; height: 627px; }
+  .f-li .zona-problema { left: 0; top: 0; width: 700px; height: 627px; }
+  .f-li .zona-solucao { left: 700px; top: 0; width: 500px; height: 627px; }
+  .f-li .logo { left: 60px; top: 56px; width: 190px; height: 44px; font-size: 12px; }
+  .f-li .titulo { left: 60px; top: 210px; font-size: 52px; }
+  .f-li .cartao { left: 640px; top: 70px; width: 400px; padding: 22px 24px; }
+  .f-li .apoio { left: 760px; bottom: 60px; font-size: 38px; }
+
+  /* ---------- Variação B: tipográfica, 1080 x 1350 ---------- */
+  .f-b { width: 1080px; height: 1350px; background: var(--mk-azul); }
+  .f-b .logo { left: 80px; bottom: 80px; width: 250px; height: 56px; }
+  .f-b .titulo { left: 80px; top: 120px; font-size: 132px; line-height: 1.02; }
+  .f-b .realce { background: linear-gradient(transparent 60%, var(--mk-escuro) 60%, var(--mk-escuro) 92%, transparent 92%); }
+  .f-b .regua { position: absolute; left: 80px; right: 80px; top: 900px; height: 3px; background: rgba(255,255,255,.35); }
+  .f-b .apoio { left: 80px; top: 950px; font-size: 64px; }
+</style>
+</head>
+<body>
+<div id="peca" class="peca"></div>
+
+<template id="cartao">
+  <div class="cartao">
+    <div class="c-topo">
+      <div class="c-doc">
+        <div class="c-icone">
+          <svg width="22" height="26" viewBox="0 0 22 26" fill="none"><path d="M2 3a2 2 0 0 1 2-2h9l7 7v15a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3Z" fill="#2094F3"/><path d="M13 1v5a2 2 0 0 0 2 2h5" fill="#9CCDF9"/><rect x="6" y="13" width="10" height="2" rx="1" fill="#fff"/><rect x="6" y="17.5" width="7" height="2" rx="1" fill="#fff"/></svg>
+        </div>
+        <div>
+          <div class="c-rotulo">Fatura</div>
+          <div class="c-num">FT 2026/148</div>
+        </div>
+      </div>
+      <div class="c-chip">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3L13 4.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Emitida
+      </div>
+    </div>
+    <div class="c-linhas">
+      <div class="c-linha"><div class="sk" style="width:52%"></div><div class="sk" style="width:18%"></div></div>
+      <div class="c-linha"><div class="sk" style="width:40%"></div><div class="sk" style="width:15%"></div></div>
+      <div class="c-linha"><div class="sk" style="width:46%"></div><div class="sk" style="width:17%"></div></div>
+    </div>
+    <div class="c-total"><span class="r">Total</span><span class="v">1 234,56 €</span></div>
+  </div>
+</template>
+
+<script>
+  const f = new URLSearchParams(location.search).get('f') || '4x5';
+  const peca = document.getElementById('peca');
+  peca.classList.add('f-' + f);
+
+  // Quebras de linha por formato. A copy não muda, só a paginação.
+  const quebras = {
+    '4x5':  ['Passar faturas', 'não devia roubar-lhe', '<span class="realce">tempo</span> ao negócio.'],
+    '1x1':  ['Passar faturas', 'não devia roubar-lhe', '<span class="realce">tempo</span> ao negócio.'],
+    '9x16': ['Passar faturas', 'não devia', 'roubar-lhe', '<span class="realce">tempo</span> ao negócio.'],
+    'li':   ['Passar faturas', 'não devia roubar-lhe', '<span class="realce">tempo</span> ao negócio.'],
+    'b':    ['Passar faturas', 'não devia', 'roubar-lhe', '<span class="realce">tempo</span> ao', 'negócio.'],
+  };
+  const titulo = '<h1 class="titulo">' + quebras[f].map(l => '<span>' + l + '</span>').join('') + '</h1>';
+  const apoio = '<p class="apoio"><span>Fature em minutos.</span><span class="leve">Sem complicações.</span></p>';
+  const logo = '<div class="logo">LOGÓTIPO</div>';
+
+  if (f === 'b') {
+    peca.innerHTML = titulo + '<div class="regua"></div>' + apoio + logo;
+  } else {
+    peca.innerHTML = '<div class="zona-problema"></div><div class="zona-solucao"></div>'
+      + logo + titulo + document.getElementById('cartao').innerHTML + apoio;
+  }
+</script>
+</body>
+</html>
