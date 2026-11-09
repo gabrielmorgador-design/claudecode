@@ -140,7 +140,27 @@ form{display:flex;flex-direction:column;gap:calc(36*var(--u))}
 .tag.ok{background:#DCFCE7;color:#15803D}.tag.new{background:#E0EDFF;color:var(--blue)}.tag.rev{background:#FEF3C7;color:#B45309}
 
 /* ============ COMPRAS COM IA (1768u) ============ */
-.ia{padding-top:calc(160*var(--u));height:calc(1768*var(--u));overflow:hidden}
+.ia{padding-top:calc(160*var(--u));padding-bottom:calc(110*var(--u));overflow:hidden}
+.aud.enter{animation:panelIn .6s var(--ease) both}
+.hl{background:linear-gradient(90deg,#5AAEF8,#38BDF8 60%,#BFE6FF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.visual .mock2{position:absolute;left:calc(70*var(--u));top:calc(150*var(--u));width:calc(640*var(--u));max-width:none;border-radius:calc(18*var(--u));box-shadow:0 30px 60px rgba(0,0,0,.5);animation:float 6s ease-in-out infinite}
+.shot{position:relative;border-radius:calc(14*var(--u));overflow:hidden;border:1px solid #E2E8F0;height:calc(250*var(--u))}
+.shot img{width:auto;max-width:none;height:100%;object-fit:cover;object-position:left top}
+.shot::after{content:"";position:absolute;left:0;right:0;top:-60px;height:60px;background:linear-gradient(180deg,transparent,rgba(32,148,243,.22));border-bottom:2px solid rgba(32,148,243,.75)}
+.stage.on .shot::after{animation:scan 2.4s ease-in-out infinite}
+.ledger{width:100%;border-collapse:collapse;font-size:max(calc(13.5*var(--u)),11.5px);font-variant-numeric:tabular-nums}
+.ledger th{font-weight:600;color:#64748B;text-align:left;padding:calc(8*var(--u)) calc(6*var(--u));border-bottom:1px solid #E2E8F0;font-size:max(calc(12*var(--u)),10.5px)}
+.ledger td{padding:calc(9*var(--u)) calc(6*var(--u));border-bottom:1px solid #F1F5F9;color:#0F172A}
+.ledger td:nth-child(n+2),.ledger th:nth-child(n+2){text-align:right}
+.ledger tr.new td{animation:rowIn .5s var(--ease) both}
+.stage.run .ledger tr:nth-child(2) td{animation-delay:.15s}.stage.run .ledger tr:nth-child(3) td{animation-delay:.3s}
+.alert{display:flex;flex-direction:column;gap:6px;border-radius:calc(14*var(--u));padding:calc(14*var(--u)) calc(16*var(--u));background:#FFFBEB;border:1px solid #FDE68A}
+.alert b{display:flex;align-items:center;gap:8px;font-size:max(calc(15*var(--u)),13px)}
+.alert span{color:#92400E;font-size:max(calc(13.5*var(--u)),12px)}
+.state{display:flex;justify-content:space-between;align-items:center}
+.state .tag{transition:all .4s}
+.validate{display:flex;justify-content:center;align-items:center;gap:10px;background:#16A34A;color:#fff;border-radius:calc(12*var(--u));padding:calc(13*var(--u));font-weight:600}
+@keyframes rowIn{from{opacity:.2;transform:translateX(-10px)}to{opacity:1;transform:none}}
 .ia-head{display:flex;justify-content:space-between;align-items:flex-end}
 .ia-head .left{display:flex;flex-direction:column;gap:calc(28*var(--u))}
 .chips{display:flex;gap:10px}
@@ -187,6 +207,7 @@ form{display:flex;flex-direction:column;gap:calc(36*var(--u))}
 .scan{position:relative;overflow:hidden}
 .scan::after{content:"";position:absolute;left:0;right:0;top:-60px;height:60px;background:linear-gradient(180deg,transparent,rgba(32,148,243,.2));border-bottom:2px solid rgba(32,148,243,.7)}
 .stage.on .scan::after{animation:scan 2.4s ease-in-out infinite}
+.stage.run .ledger td{animation:rowIn .5s var(--ease) both}
 .reg{display:flex;justify-content:center;align-items:center;gap:10px;background:var(--blue);color:#fff;border-radius:calc(12*var(--u));padding:calc(13*var(--u));font-weight:600}
 .steps{flex:1;display:flex;flex-direction:column;padding-top:calc(20*var(--u))}
 .step{display:grid;grid-template-columns:calc(64*var(--u)) 1fr;column-gap:calc(32*var(--u));cursor:pointer}
@@ -327,7 +348,7 @@ footer img{width:calc(875*var(--u));height:auto}
   .ef-row{flex-direction:column;gap:40px;margin-top:48px}
   .visual{width:100%;max-width:640px;height:auto;aspect-ratio:1}
   .visual .mock{left:15%;top:14%;width:74%}
-  .dash{width:86%}
+  .visual .mock2{left:8%;top:22%;width:100%}
   .ef-copy{width:auto}
   .tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}
   .ia{padding-block:96px}
@@ -370,8 +391,8 @@ footer img{width:calc(875*var(--u));height:auto}
   <div class="wrap">
     <a href="#topo" class="logo" aria-label="CentralGest Cloud"><img src="assets/logo.png" alt="CentralGest Cloud" width="178" height="46"></a>
     <nav class="links" aria-label="Secções">
-      <a href="#eficiencia" data-spy="eficiencia">Para Empresários</a>
-      <a href="#eficiencia" data-tab="t-cont">Para Contabilistas</a>
+      <a href="#eficiencia" data-spy="eficiencia" data-tab="t-emp">Para Empresários</a>
+      <a href="#eficiencia" data-spy="eficiencia" data-tab="t-cont">Para Contabilistas</a>
       <a href="#planos" data-spy="planos">Planos e Preços</a>
     </nav>
     <a href="#formulario" class="btn btn-ghost">Aderir já</a>
@@ -471,8 +492,8 @@ footer img{width:calc(875*var(--u));height:auto}
       </div>
       <div class="tabs" role="tablist" data-tabs aria-label="Público">
         <span class="ind"></span>
-        <button role="tab" id="t-emp" aria-selected="true" aria-controls="p-emp">Para Empresas</button>
-        <button role="tab" id="t-cont" aria-selected="false" aria-controls="p-cont">Para Contabilistas</button>
+        <button role="tab" id="t-emp" aria-selected="true" aria-controls="p-emp" data-audience="emp">Para Empresas</button>
+        <button role="tab" id="t-cont" aria-selected="false" aria-controls="p-cont" data-audience="cont">Para Contabilistas</button>
       </div>
     </div>
     <div class="panel" id="p-emp" role="tabpanel" aria-labelledby="t-emp">
@@ -501,20 +522,14 @@ footer img{width:calc(875*var(--u));height:auto}
           <div class="glow" style="width:calc(700*var(--u));height:calc(600*var(--u));left:calc(-260*var(--u));top:calc(240*var(--u));background:var(--blue);opacity:.95;filter:blur(calc(90*var(--u)));z-index:-1"></div>
           <div class="glow" style="width:calc(420*var(--u));height:calc(360*var(--u));left:calc(-170*var(--u));top:calc(400*var(--u));background:var(--cyan);opacity:.85;filter:blur(calc(75*var(--u)));z-index:-1"></div>
           <div class="noise"></div>
-          <div class="dash">
-            <header>Clientes do gabinete <span>EXEMPLO</span></header>
-            <div class="row"><div>Altégra, Lda.<small>Importação de compras E-Fatura</small></div><span class="tag ok">Importado</span></div>
-            <div class="row"><div>Terralvo Ferragens<small>Conciliação bancária</small></div><span class="tag rev">A rever</span></div>
-            <div class="row"><div>Miradouro Café<small>Reporting financeiro e fiscal</small></div><span class="tag ok">Concluído</span></div>
-            <div class="row"><div>Norte Construções<small>Importação de vendas</small></div><span class="tag new">Em curso</span></div>
-          </div>
+          <img class="mock2" src="assets/documentos-digitais.webp" alt="Documentos digitais no CentralGest Cloud, com documento lançado automaticamente pelo robô" width="1300" height="671">
         </div>
         <div class="ef-copy">
-          <h3>Automatize e agilize a contabilidade com processos inteligentes.</h3>
-          <p class="body">Importe documentos, concilie movimentos e prepare o reporting dos seus clientes num só software.</p>
+          <h3>Agilize o trabalho do seu gabinete.</h3>
+          <p class="body">Com uma plataforma completa com a certificação SVAT, centralize as áreas de contabilidade, salários, ativos, arquivo digital e reconciliação bancária, reduzindo tarefas manuais e assegurando o cumprimento fiscal.</p>
           <ul class="checks">
-            <li><svg width="16" height="20" viewBox="0 0 16 20" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 10.5l3.5 3.5 7.5-8"/></svg>Importações de compras E-Fatura</li>
-            <li><svg width="16" height="20" viewBox="0 0 16 20" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 10.5l3.5 3.5 7.5-8"/></svg>Conciliação bancária com IA</li>
+            <li><svg width="16" height="20" viewBox="0 0 16 20" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 10.5l3.5 3.5 7.5-8"/></svg>Declarações fiscais automáticas para a AT</li>
+            <li><svg width="16" height="20" viewBox="0 0 16 20" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 10.5l3.5 3.5 7.5-8"/></svg>Conciliação bancária com extratos</li>
           </ul>
           <a href="#formulario" class="btn btn-light" style="align-self:flex-start">Aderir já <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h12M10 4l5 5-5 5"/></svg></a>
         </div>
@@ -528,6 +543,7 @@ footer img{width:calc(875*var(--u));height:auto}
   <div class="glow" style="width:calc(1300*var(--u));height:calc(900*var(--u));left:calc(-520*var(--u));top:calc(900*var(--u));background:var(--blue);opacity:.26;filter:blur(calc(140*var(--u)))"></div>
   <div class="glow" style="width:calc(900*var(--u));height:calc(600*var(--u));left:calc(1250*var(--u));top:calc(-120*var(--u));background:var(--cyan);opacity:.1;filter:blur(calc(130*var(--u)))"></div>
   <div class="wrap">
+   <div class="aud" data-aud="emp">
     <div class="ia-head rv">
       <div class="left">
         <div class="chips"><span class="chip novo">Novidade</span><span class="chip ai"><svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0l1.6 5.4L14 7l-5.4 1.6L7 14l-1.6-5.4L0 7l5.4-1.6z" fill="#BFE6FF"/></svg>Automação inteligente</span></div>
@@ -594,6 +610,65 @@ footer img{width:calc(875*var(--u));height:auto}
         <div class="step" data-step="3" role="button" tabindex="0"><div class="mk"><span class="num">4</span><span class="rail"></span></div><div class="txt"><h4>A compra fica pronta a registar</h4><p>Confirme apenas o que precisa de atenção e registe. O artigo novo só é criado ao finalizar o documento, e nas faturas seguintes do mesmo fornecedor as associações são reaproveitadas.</p></div></div>
       </div>
     </div>
+   </div>
+   <div class="aud" data-aud="cont" hidden>
+    <div class="ia-head">
+      <div class="left">
+        <div class="chips"><span class="chip novo">Brevemente</span><span class="chip ai"><svg width="12" height="12" viewBox="0 0 14 14"><path d="M7 0l1.6 5.4L14 7l-5.4 1.6L7 14l-1.6-5.4L0 7l5.4-1.6z" fill="#BFE6FF"/></svg>IA no Registo Contabilístico</span></div>
+        <h2>A IA prepara.<br><span class="hl">O contabilista valida.</span></h2>
+      </div>
+      <p>Do documento digital ao lançamento em segundos, com alertas fiscais antes de guardar. A decisão final é sempre sua.</p>
+    </div>
+    <div class="subhead"><span class="chip line">Como funciona</span><h3>Do documento ao lançamento, em três passos</h3><span class="rule"></span></div>
+    <div class="how">
+      <div class="stage-wrap">
+        <div class="stagebox">
+          <div class="glow" style="width:calc(900*var(--u));height:calc(700*var(--u));left:calc(120*var(--u));top:calc(260*var(--u));background:var(--blue);filter:blur(calc(95*var(--u)));z-index:-1"></div>
+          <div class="glow" style="width:calc(700*var(--u));height:calc(560*var(--u));left:calc(220*var(--u));top:calc(400*var(--u));background:var(--cyan);opacity:.75;filter:blur(calc(75*var(--u)));z-index:-1"></div>
+          <div class="glow" style="width:calc(520*var(--u));height:calc(440*var(--u));left:calc(300*var(--u));top:calc(520*var(--u));background:#EAF8FF;opacity:.85;filter:blur(calc(55*var(--u)));z-index:-1"></div>
+          <div class="noise"></div>
+          <div class="stage on run" data-stage="0">
+            <span class="chip line">Passo 1 · Analisar</span>
+            <div class="wcard">
+              <div class="inv-head">Documentos digitais <span class="ai-chip">✦ A reclassificar com IA</span></div>
+              <div class="shot"><img src="assets/ia-contabilidade.webp" alt="Reclassificação de documento com IA no CentralGest Cloud" width="1600" height="646"></div>
+              <div class="ln"><div>FT 2026/1184 · Altégra, Lda.<small>A ler o documento e as suas linhas</small></div><span class="tag new">Em análise</span></div>
+            </div>
+          </div>
+          <div class="stage" data-stage="1">
+            <span class="chip line">Passo 2 · Propor</span>
+            <div class="wcard">
+              <div class="inv-head">Lançamento proposto pela IA <span class="ai-chip">✦ Proposta</span></div>
+              <div class="kv"><div>Diário<b>Compras</b></div><div>Data<b>14/02/2026</b></div><div>Descrição<b>FT 2026/1184 Altégra</b></div></div>
+              <table class="ledger">
+                <thead><tr><th>Conta</th><th>Débito</th><th>Crédito</th></tr></thead>
+                <tbody>
+                  <tr><td>Fornecimentos e serviços</td><td>100,00 €</td><td></td></tr>
+                  <tr><td>IVA dedutível 23%</td><td>23,00 €</td><td></td></tr>
+                  <tr><td>Fornecedores c/c</td><td></td><td>123,00 €</td></tr>
+                </tbody>
+              </table>
+              <small style="color:#64748B">Valores de exemplo</small>
+            </div>
+          </div>
+          <div class="stage" data-stage="2">
+            <span class="chip line">Passo 3 · Validar</span>
+            <div class="wcard">
+              <div class="state">Estado do documento <span class="tag rev" id="valState">Por validar</span></div>
+              <div class="alert"><b><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>2 alertas fiscais</b><span>IVA dedutível a 23% · sem retenção na fonte</span></div>
+              <div class="ln"><div>Lançamento proposto pela IA<small>Rever, ajustar e validar no mesmo ecrã</small></div><span class="tag ok">3 linhas</span></div>
+              <button class="validate" type="button" id="validateBtn">✓ Validar lançamento</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step on" data-step="0" role="button" tabindex="0"><div class="mk"><span class="num">1</span><span class="rail"></span></div><div class="txt"><h4>Analisar</h4><p>A IA lê o documento e as suas linhas e inicia a reclassificação automaticamente.</p></div></div>
+        <div class="step" data-step="1" role="button" tabindex="0"><div class="mk"><span class="num">2</span><span class="rail"></span></div><div class="txt"><h4>Propor</h4><p>Cria a proposta com contas de débito e crédito, valor e tratamento do IVA, diário, datas e descrição.</p></div></div>
+        <div class="step" data-step="2" role="button" tabindex="0"><div class="mk"><span class="num">3</span><span class="rail"></span></div><div class="txt"><h4>Validar</h4><p>O contabilista revê, ajusta e valida no mesmo ecrã do documento, antes do registo final.</p></div></div>
+      </div>
+    </div>
+   </div>
   </div>
 </section>
 
@@ -705,7 +780,8 @@ footer img{width:calc(875*var(--u));height:auto}
   const onS=()=>{nav.classList.toggle('scrolled',scrollY>30);const h=document.documentElement.scrollHeight-innerHeight;bar.style.transform=`scaleX(${h>0?scrollY/h:0})`;};
   addEventListener('scroll',onS,{passive:true});onS();
   const spy=$$('[data-spy]');
-  const sio2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)spy.forEach(a=>a.classList.toggle('active',a.dataset.spy===e.target.id));}),{rootMargin:'-45% 0px -50% 0px'});
+  let aud='emp',spyId='topo';const paintSpy=()=>spy.forEach(a=>a.classList.toggle('active',a.dataset.spy===spyId&&(!a.dataset.tab||a.dataset.tab===(aud==='cont'?'t-cont':'t-emp'))));
+  const sio2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){spyId=e.target.id;paintSpy();}}),{rootMargin:'-45% 0px -50% 0px'});
   ['topo','formulario','eficiencia','compras-ia','modulos','arquivo','planos'].forEach(id=>sio2.observe(document.getElementById(id)));
 
   // hero interactions
@@ -725,21 +801,26 @@ footer img{width:calc(875*var(--u));height:auto}
     for(const k in v){const t=pad(v[k]);if(cells[k].textContent!==t){cells[k].textContent=t;if(!reduce){cells[k].classList.remove('tick');void cells[k].offsetWidth;cells[k].classList.add('tick');}}}};
   tick();setInterval(tick,1000);
 
+  // audience: companies vs accountants (swaps the AI section)
+  const setAud=a=>{aud=a;paintSpy();$$('[data-aud]').forEach(el=>{const on=el.dataset.aud===a;if(el.hidden===!on)return;el.hidden=!on;if(on){el.classList.remove('enter');void el.offsetWidth;el.classList.add('enter');const h=$('.how',el);if(h&&h._reset)h._reset();}});};
   // tabs with sliding indicator
   const tabApi={};
   $$('[data-tabs]').forEach(tl=>{const ind=$('.ind',tl),btns=$$('[role=tab]',tl);
     const place=b=>{ind.style.width=b.offsetWidth+'px';ind.style.transform=`translateX(${b.offsetLeft-6}px)`;ind.style.left='6px';};
-    const sel=b=>{btns.forEach(x=>{const on=x===b;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;const p=document.getElementById(x.getAttribute('aria-controls'));p.hidden=!on;if(on){p.classList.remove('enter');void p.offsetWidth;p.classList.add('enter');}});place(b);};
+    const sel=b=>{if(b.dataset.audience)setAud(b.dataset.audience);btns.forEach(x=>{const on=x===b;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;const p=document.getElementById(x.getAttribute('aria-controls'));p.hidden=!on;if(on){p.classList.remove('enter');void p.offsetWidth;p.classList.add('enter');}});place(b);};
     btns.forEach((b,i)=>{tabApi[b.id]=()=>sel(b);b.addEventListener('click',()=>sel(b));b.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=btns[(i+(e.key==='ArrowRight'?1:-1)+btns.length)%btns.length];n.focus();sel(n);}});});
     const cur=()=>btns.find(b=>b.getAttribute('aria-selected')==='true');
     requestAnimationFrame(()=>place(cur()));addEventListener('resize',()=>place(cur()));if(document.fonts)document.fonts.ready.then(()=>place(cur()));});
   $$('[data-tab]').forEach(a=>a.addEventListener('click',()=>tabApi[a.dataset.tab]&&tabApi[a.dataset.tab]()));
 
-  // steps
-  const steps=$$('.step'),stages=$$('.stage');let cur=0;
-  const setStep=i=>{if(i===cur)return;cur=i;steps.forEach((s,k)=>{s.classList.toggle('on',k===i);s.classList.toggle('done',k<i);});stages.forEach((s,k)=>{s.classList.toggle('on',k===i);s.classList.remove('run');});void stages[i].offsetWidth;stages[i].classList.add('run');};
-  const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setStep(+e.target.dataset.step);}),{rootMargin:'-45% 0px -45% 0px'});
-  steps.forEach(s=>{so.observe(s);s.addEventListener('click',()=>setStep(+s.dataset.step));s.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setStep(+s.dataset.step);}});});
+  // steps, one controller per "Como funciona" block
+  $$('.how').forEach(how=>{const steps=$$('.step',how),stages=$$('.stage',how);let cur=0;
+    const setStep=(i,force)=>{if(i===cur&&!force)return;cur=i;steps.forEach((s,k)=>{s.classList.toggle('on',k===i);s.classList.toggle('done',k<i);});stages.forEach((s,k)=>{s.classList.toggle('on',k===i);s.classList.remove('run');});void stages[i].offsetWidth;stages[i].classList.add('run');};
+    const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setStep(+e.target.dataset.step);}),{rootMargin:'-45% 0px -45% 0px'});
+    steps.forEach(s=>{so.observe(s);s.addEventListener('click',()=>setStep(+s.dataset.step));s.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setStep(+s.dataset.step);}});});
+    how._reset=()=>setStep(0,true);});
+  const vb=$('#validateBtn'),vs=$('#valState');
+  if(vb)vb.addEventListener('click',()=>{const done=vs.textContent==='Validado';vs.textContent=done?'Por validar':'Validado';vs.className='tag '+(done?'rev':'ok');vb.textContent=done?'✓ Validar lançamento':'Lançamento validado';});
 
   // reveal (visible at rest, slides in)
   const rv=$$('.rv');rv.forEach(el=>{if(el.getBoundingClientRect().top>innerHeight*.95)el.classList.add('pre');});
